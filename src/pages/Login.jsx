@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-// import axios from "axios";
+import axios from "axios";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Login = () => {
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
 
-  // react-hook-form
   const {
     register,
     handleSubmit,
@@ -21,12 +22,12 @@ const Login = () => {
 
   const onSubmit = async (data) => {
     try {
-      // const res = await axios.post("http://127.0.0.1:7023/user/login", {
-      //   email: data.email,
-      //   password: data.password,
-      // });
+      const res = await axios.post("http://127.0.0.1:7023/user/login", {
+        email: data.email,
+        password: data.password,
+      });
 
-      // console.log(res.data);
+      console.log(res.data);
 
       if (data.role === "admin") {
         navigate("/admin/Students");
@@ -36,8 +37,8 @@ const Login = () => {
         navigate("/alumni/Professional_Details");
       }
     } catch (err) {
-      console.log(err);
-      alert("Invalid login credentials");
+      console.log(err.response?.data || err);
+      alert(err.response?.data?.msg || "Invalid login credentials");
     }
   };
 
@@ -47,6 +48,7 @@ const Login = () => {
         <h3 className="text-center mb-4">CampusConnect Login</h3>
 
         <form onSubmit={handleSubmit(onSubmit)}>
+          {/* Email */}
           <div className="mb-3">
             <label className="form-label">Email address</label>
             <input
@@ -65,25 +67,31 @@ const Login = () => {
             )}
           </div>
 
+          {/* Password with eye icon */}
           <div className="mb-3">
             <label className="form-label">Password</label>
-            <input
-              type="password"
-              className={`form-control ${errors.password ? "is-invalid" : ""}`}
-              {...register("password", {
-                required: "Password is required",
-                pattern: {
-                  value: /^(?=.*[A-Z])(?=.*\d).{8,}$/,
-                  message:
-                    "Password must be at least 8 characters, include 1 uppercase letter and 1 number.",
-                },
-              })}
-            />
+            <div className="input-group">
+              <input
+                type={showPassword ? "text" : "password"}
+                className={`form-control ${
+                  errors.password ? "is-invalid" : ""
+                }`}
+                {...register("password", { required: "Password is required" })}
+              />
+              <span
+                className="input-group-text"
+                style={{ cursor: "pointer" }}
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </span>
+            </div>
             {errors.password && (
               <div className="text-danger small">{errors.password.message}</div>
             )}
           </div>
 
+          {/* Role */}
           <div className="mb-3">
             <label className="form-label">Login as</label>
             <select
