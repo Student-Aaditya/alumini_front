@@ -6,12 +6,26 @@ const StudentLayout = () => {
   return (
     <div>
       {/* Navbar */}
-      <nav className="navbar navbar-expand-lg navbar-primary bg-primary">
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <div className="container-fluid">
-          <Link className="navbar-brand fw-bold text-white" to="/student">
+          <Link className="navbar-brand fw-bold " to="/student">
             Student Portal
           </Link>
-          <div className="collapse navbar-collapse">
+
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#studentNavbar"
+            aria-controls="studentNavbar"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
+
+
+          <div className="collapse navbar-collapse" id="studentNavbar">
             <ul className="navbar-nav ms-auto">
               <li className="nav-item">
                 <Link className="nav-link text-white" to="/student/Alumni_Directory">

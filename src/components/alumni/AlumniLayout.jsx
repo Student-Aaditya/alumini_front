@@ -6,12 +6,28 @@ const AlumniLayout = () => {
   return (
     <div>
       {/* Navbar */}
-      <nav className="navbar navbar-expand-lg navbar-secondary bg-secondary">
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <div className="container-fluid">
+          {/* Brand */}
           <Link className="navbar-brand fw-bold text-white" to="/alumni">
             Alumni Portal
           </Link>
-          <div className="collapse navbar-collapse">
+
+          {/* Toggler button for mobile */}
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#alumniNavbar"
+            aria-controls="alumniNavbar"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
+
+          {/* Collapsible content */}
+          <div className="collapse navbar-collapse" id="alumniNavbar">
             <ul className="navbar-nav ms-auto">
               <li className="nav-item">
                 <Link className="nav-link text-white" to="/alumni/Events">
